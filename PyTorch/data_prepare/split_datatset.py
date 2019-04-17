@@ -24,10 +24,10 @@ def main():
             train_point = int(cnt * ratio[0])
             valid_point = int(cnt * (ratio[0] + ratio[1]))
 
-            file_list =  [train_dir, valid_dir, test_dir]
-            for item in file_list:
-                if not osp.exists(item):
-                    os.makedirs(item)
+            # file_list =  [train_dir, valid_dir, test_dir]
+            # for item in file_list:
+            #     if not osp.exists(item):
+            #         os.makedirs(item)
 
             for i in range(cnt):
                 if i < train_point:
@@ -37,7 +37,11 @@ def main():
                 else:
                     out_dir = osp.join(test_dir, sDir)
                 
-                out_path = out_dir + osp.split(imgs_list[i])[-1]
+                out_path = osp.join(out_dir,osp.split(imgs_list[i])[-1])
+                
+                if not osp.exists(out_dir):
+                    os.makedirs(out_dir)
+
                 shutil.copy(imgs_list[i], out_path)
             print('Class: {}, train: {}, valid: {}, test: {}'.format(sDir, train_point, valid_point, cnt-valid_point))
 
